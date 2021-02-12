@@ -5,36 +5,48 @@
     <style>
         table {
             border-collapse: collapse;
-            border: 2px black solid;
+            border: 1px black solid;
             font: 12px sans-serif;
         }
 
         td {
-            border: 1px black solid;
+            border: 1px #808080 solid;
             padding: 5px;
         }
     </style>
+    <title>CV</title>
 </head>
 <body>
- <script src="https://d3js.org/d3.v3.min.js"></script>
-<!--<script src="d3.min.js?v=3.2.8"></script>-->
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+    function renderCsv(path, target) {
+        d3.text(path, function (data) {
+            let parsedCSV = d3.csv.parseRows(data);
+            d3.select(target)
+                .append("table")
 
-<script type="text/javascript"charset="utf-8">
-    d3.text("positions.csv", function(data) {
-        var parsedCSV = d3.csv.parseRows(data);
+                .selectAll("tr")
+                .data(parsedCSV).enter()
+                .append("tr")
 
-        var container = d3.select("body")
-            .append("table")
-
-            .selectAll("tr")
-            .data(parsedCSV).enter()
-            .append("tr")
-
-            .selectAll("td")
-            .data(function(d) { return d; }).enter()
-            .append("td")
-            .text(function(d) { return d; });
-    });
+                .selectAll("td")
+                .data(function (d) {
+                    return d;
+                }).enter()
+                .append("td")
+                .text(function (d) {
+                    return d;
+                });
+        })
+    }
+    renderCsv("positions.csv", ".positions")
+    renderCsv("education.csv", ".education")
+    ;
 </script>
+<h1>CV Jørgen Hovind</h1>
+<h2>Positions</h2>
+<article class="positions"></article>
+<h2>Education</h2>
+<article class="education"></article>
 </body>
 </html>
