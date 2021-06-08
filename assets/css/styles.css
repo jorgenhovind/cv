@@ -1,0 +1,12 @@
+table {
+    border-collapse: collapse;
+    border: 1px black solid;
+    font: 12px sans-serif;
+    margin: auto;
+    width: 90vw;
+}
+
+td {
+    border: 1px #808080 solid;
+    padding: 5px;
+}
